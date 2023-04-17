@@ -28,7 +28,7 @@ def calc_y(r, v=-141, xmin=170, xmax=190):
 
 def calc_n(r, s, dr=-141, ds=-305, xmin=170, xmax=190):
     ur = np.unwrap(np.angle(np.fft.fft(np.roll(r, dr))))+dr*np.linspace(0, 2*pi, len(r))
-    ur -= ur[0]
+    ur -= ur[0]-2*pi
     us = np.unwrap(np.angle(np.fft.fft(np.roll(s, ds))))+ds*np.linspace(0, 2*pi, len(s))
     us -= us[0]
     delta_ang = us - ur
