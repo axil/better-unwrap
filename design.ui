@@ -16,7 +16,13 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="PlotWidget" name="canvas"/>
+     <widget class="PlotWidget" name="canvas1"/>
+    </item>
+    <item>
+     <widget class="PlotWidget" name="canvas2_2"/>
+    </item>
+    <item>
+     <widget class="PlotWidget" name="canvas3"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
