@@ -28,7 +28,9 @@ def calc_y(r, v=-141, xmin=170, xmax=190):
 
 def calc_n(r, s, dr=-141, ds=-305, xmin=170, xmax=190):
     ur = np.unwrap(np.angle(np.fft.fft(np.roll(r, dr))))+dr*np.linspace(0, 2*pi, len(r))
+    ur -= ur[0]
     us = np.unwrap(np.angle(np.fft.fft(np.roll(s, ds))))+ds*np.linspace(0, 2*pi, len(s))
+    us -= us[0]
     delta_ang = us - ur
     n = (1-(c*delta_ang[1:]/(freq_1[1:]*2.08/1000*6.28)))
 #    return freq_1[:len(freq_1)//2], n1[:len(freq_1)//2]
@@ -40,35 +42,49 @@ class ExampleApp(QtWidgets.QMainWindow, Design):
         super().__init__()
         self.setupUi(self)  # Этот метод из класса Design, он инициализирует виджеты
         self.x = np.arange(len(r))
-        minv, maxv, dr, ds = -200, 0, -141, -305
+        minv, maxv, dr, ds = -400, 0, -141, -305
         y = calc_y(r)
-        t, n = calc_n(r, s)
+        t, n = calc_n(r, s, dr=dr, ds=ds)
         self.curve1 = self.canvas1.plot(y, pen=(31, 119, 180))
         self.curve2 = self.canvas2.plot(n, pen=(31, 119, 180))
         self.curve3 = self.canvas3.plot(n, pen=(31, 119, 180))
-        self.v.setMinimum(minv)
-        self.v.setMaximum(maxv)
-        self.v.setValue(v)
-        self.v_slider.setMinimum(minv)
-        self.v_slider.setMaximum(maxv)
-        self.v_slider.setValue(v)
+        self.dr.setMinimum(minv)
+        self.dr.setMaximum(maxv)
+        self.dr.setValue(dr)
+        self.dr_slider.setMinimum(minv)
+        self.dr_slider.setMaximum(maxv)
+        self.dr_slider.setValue(dr)
+        self.ds.setMinimum(minv)
+        self.ds.setMaximum(maxv)
+        self.ds.setValue(ds)
+        self.ds_slider.setMinimum(minv)
+        self.ds_slider.setMaximum(maxv)
+        self.ds_slider.setValue(ds)
 
  
-    def update(self, v=None, xmin=None, xmax=None):
-        if v is None:
-            v = self.v.value()
+    def update(self, dr=None, ds=None, xmin=None, xmax=None):
+        if ds is None:
+            ds = self.ds.value()
+        if dr is None:
+            dr = self.dr.value()
         if xmin is None:
             xmin = self.xmin.value()
         if xmax is None:
             xmax = self.xmax.value()
-        y = calc_y(r, v, xmin, xmax)
+        y = calc_y(r, dr, xmin, xmax)
         self.curve1.setData(y)
-        t, n = calc_n(r, s, dr=v, xmin=xmin, xmax=xmax)
-        self.curve2.setData(n)
+        y = calc_y(s, ds, xmin, xmax)
+        self.curve2.setData(y)
+        t, n = calc_n(r, s, dr=dr, ds=ds, xmin=xmin, xmax=xmax)
+        self.curve3.setData(n)
 
     @slot(int)
-    def on_v_valueChanged(self, v):
-        self.update(v=v)
+    def on_dr_valueChanged(self, dr):
+        self.update(dr=dr)
+
+    @slot(int)
+    def on_ds_valueChanged(self, ds):
+        self.update(ds=ds)
 
     @slot(int)
     def on_xmin_valueChanged(self, xmin):

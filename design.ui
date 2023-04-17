@@ -19,7 +19,7 @@
      <widget class="PlotWidget" name="canvas1"/>
     </item>
     <item>
-     <widget class="PlotWidget" name="canvas2_2"/>
+     <widget class="PlotWidget" name="canvas2"/>
     </item>
     <item>
      <widget class="PlotWidget" name="canvas3"/>
@@ -47,7 +47,24 @@
        </widget>
       </item>
       <item>
-       <widget class="QSlider" name="v_slider">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QSlider" name="dr_slider">
         <property name="value">
          <number>1</number>
         </property>
@@ -57,7 +74,28 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="v">
+       <widget class="QSpinBox" name="dr">
+        <property name="value">
+         <number>1</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QSlider" name="ds_slider">
+        <property name="value">
+         <number>1</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="ds">
         <property name="value">
          <number>1</number>
         </property>
@@ -89,34 +127,66 @@
  <resources/>
  <connections>
   <connection>
-   <sender>v_slider</sender>
+   <sender>dr_slider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>v</receiver>
+   <receiver>dr</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>312</x>
-     <y>342</y>
+     <x>696</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
-     <x>385</x>
-     <y>346</y>
+     <x>741</x>
+     <y>611</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>v</sender>
+   <sender>dr</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>v_slider</receiver>
+   <receiver>dr_slider</receiver>
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>382</x>
-     <y>338</y>
+     <x>741</x>
+     <y>617</y>
     </hint>
     <hint type="destinationlabel">
-     <x>298</x>
-     <y>338</y>
+     <x>664</x>
+     <y>612</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ds_slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ds</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>689</x>
+     <y>644</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>761</x>
+     <y>638</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ds</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>ds_slider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>746</x>
+     <y>646</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>681</x>
+     <y>643</y>
     </hint>
    </hints>
   </connection>
